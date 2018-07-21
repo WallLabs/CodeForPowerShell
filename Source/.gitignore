@@ -1,0 +1,10 @@
+﻿# Ignore Visual Studio temporary and user specific files.
+/.vs/
+bin/
+obj/
+/packages/
+*.user
+*.jfm
+
+# Ignore solution specific files.
+/Temp/
