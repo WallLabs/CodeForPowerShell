@@ -20,11 +20,11 @@ if %errorlevel% neq 0 goto Error
 
 echo.
 echo Copying dependencies...
-robocopy "%~dp0Temp\CodeForWindows\Build\v1\Release\Scripts\Visual Studio" "%~dp0." Variables.cmd
+robocopy "%~dp0Temp\CodeForWindows\Build\Scripts\Visual Studio" "%~dp0." Variables.cmd
 if %errorlevel% gtr 7 goto Error
-robocopy "%~dp0Temp\CodeForWindows\Build\v1\Release\Documentation" "%~dp0." "*Release Notes*"
-if %errorlevel% gtr 7 goto Error
-robocopy "%~dp0Temp\CodeForWindows\Build\v1\Release\Version" "%~dp0." *.Version.txt
+copy "%~dp0Temp\CodeForWindows\Build\Documentation\Release Notes.md" "%~dp0Code for Windows Release Notes.md" /y
+if %errorlevel% neq 0 goto Error
+robocopy "%~dp0Temp\CodeForWindows\Build\Version" "%~dp0." *.Version.txt
 if %errorlevel% gtr 7 goto Error
 attrib "%~dp0*" -r /s
 if %errorlevel% neq 0 goto Error

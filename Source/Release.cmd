@@ -49,6 +49,11 @@ robocopy "%~dp0Temp\Build\Release" "%~dp0..\Build" /s
 if %errorlevel% gtr 7 goto Error
 
 echo.
+echo Clean temporary files...
+rmdir "%~dp0Temp" /s /q
+if %errorlevel% gtr 1 goto Error
+
+echo.
 echo Build all successful.
 endlocal
 exit /b 0
