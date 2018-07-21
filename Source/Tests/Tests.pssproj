@@ -26,10 +26,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CodeForPowerShell.VisualStudio.Version.tests.ps1" />
     <Compile Include="Setup.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Version.txt" />
+    <Content Include="Data\Visual Studio XML Project.xml" />
+    <Content Include="Data\Windows Universal Package Manifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />

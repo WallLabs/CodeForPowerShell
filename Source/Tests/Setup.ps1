@@ -34,13 +34,19 @@ Get-Module -Name 'CodeForPowerShell*' | Remove-Module -Force;
 # Main Program
 # ------------------------------------------------------------------------------
 
-# Create/clean output directory.
-$outputDirectoryPath = "$PSScriptRoot\Data\Output";
-if (Test-Path -LiteralPath $outputDirectoryPath -PathType Container)
+# Clean test data directory.
+$dataDirectoryPath = "$PSScriptRoot\Temp\Data";
+if (Test-Path -Path $dataDirectoryPath -PathType Container)
 {
-    Remove-Item -LiteralPath $outputDirectoryPath -Recurse -Force;
+    Remove-Item -Path $dataDirectoryPath -Recurse -Force;
 }
-New-Item -Path $outputDirectoryPath -ItemType Directory | Out-Null;
+New-Item -Path $dataDirectoryPath -ItemType Directory | Out-Null;
+
+# Copy data to test working path
+Copy-Item -Path "$PSScriptRoot\Data" -Destination "$dataDirectoryPath" -Recurse -Force;
+
+# Set working directory for tests
+Set-Location $dataDirectoryPath;
 
 # Exit successful.
 Exit 0;
