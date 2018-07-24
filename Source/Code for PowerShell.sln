@@ -5,20 +5,20 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A23DD08-C949-4D4E-92D3-969A2718CD29}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
 		Build.cmd = Build.cmd
 		NuGet.config = NuGet.config
 		Release.cmd = Release.cmd
 		Setup.ps1 = Setup.ps1
+		Solution.gitignore = Solution.gitignore
 		Version.cmd = Version.cmd
 		Version.ps1 = Version.ps1
 		Version.txt = Version.txt
+		VisualStudio.gitignore = VisualStudio.gitignore
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{900084E7-FDE6-469E-97EF-B98FE1C8209C}"
 	ProjectSection(SolutionItems) = preProject
 		Dependencies\Code for Windows Release Notes.md = Dependencies\Code for Windows Release Notes.md
-		Dependencies\Code for Windows Release Notes.rtf = Dependencies\Code for Windows Release Notes.rtf
 		Dependencies\CodeForWindows.Version.txt = Dependencies\CodeForWindows.Version.txt
 		Dependencies\Update.cmd = Dependencies\Update.cmd
 		Dependencies\Variables.cmd = Dependencies\Variables.cmd

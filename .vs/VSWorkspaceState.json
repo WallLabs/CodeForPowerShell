@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Build",
+    "\\Build\\Documentation",
+    "\\Build\\Modules",
+    "\\Build\\Modules\\CodeForPowerShell.VisualStudio",
+    "\\Build\\Version",
+    "\\Source",
+    "\\Source\\Dependencies",
+    "\\Source\\Documentation",
+    "\\Source\\Modules"
+  ],
+  "SelectedNode": "\\Source\\Dependencies\\Update.cmd",
+  "PreviewInSolutionExplorer": false
+}

@@ -38,7 +38,7 @@ if %errorlevel% neq 0 goto Error
 echo.
 echo Clean temporary files...
 rmdir "%~dp0Temp" /s /q
-if %errorlevel% gtr 1 goto Error
+if %errorlevel% neq 0 goto Error
 
 echo.
 echo Update successful.
@@ -47,5 +47,7 @@ exit /b 0
 
 :Error
 echo Error %errorlevel%!
+echo.
+echo Note: Visual Studio must be closed before running this script to prevent build errors from locked files and caches.
 endlocal
 exit /b 1
