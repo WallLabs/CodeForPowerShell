@@ -5,17 +5,15 @@
 # all modules are updated with any code changes since the last run.
 # ==============================================================================
 
-
 # ==============================================================================
 # Globals
 # ------------------------------------------------------------------------------
 
 # Options.
 Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency
-$error.Clear();                   # Clear any errors from previous script runs
+$Error.Clear();                   # Clear any errors from previous script runs
 $ErrorActionPreference = 'Stop';  # All unhandled errors stop program
 $WarningPreference = 'Stop';      # All warnings stop program
-
 
 # ==============================================================================
 # Modules
@@ -28,7 +26,6 @@ $env:PSModulePath = "$env:PSModulePath;$PSScriptRoot\..\Modules";
 # Force reload of all modules in solution (so source updates are included).
 Get-Module -ListAvailable -Name 'CodeForPowerShell*' -Refresh;
 Get-Module -Name 'CodeForPowerShell*' | Remove-Module -Force;
-
 
 # ==============================================================================
 # Main Program

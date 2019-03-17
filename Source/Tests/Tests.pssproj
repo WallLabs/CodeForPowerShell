@@ -34,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Version.txt" />
+    <Content Include="Data\Visual Studio C++ Resource.rc" />
     <Content Include="Data\Visual Studio XML Project.xml" />
     <Content Include="Data\Windows Universal Package Manifest.xml" />
   </ItemGroup>

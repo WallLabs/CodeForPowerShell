@@ -1,6 +1,6 @@
 ﻿# Options
 Set-StrictMode -Version Latest;    # Proactively avoid errors and inconsistency
-$error.Clear();                    # Clear any errors from previous script runs
+$Error.Clear();                    # Clear any errors from previous script runs
 $ErrorActionPreference = "Stop";   # All unhandled errors stop program
 $WarningPreference = "Stop";       # All warnings stop program
 
@@ -9,61 +9,72 @@ $WarningPreference = "Stop";       # All warnings stop program
 $dataDirectoryPath = "$PSScriptRoot\Temp\Data";
 
 # Tests
-Describe "Tests" {
+Describe 'CodeForPowerShell' {
+    Context 'VisualStudio.Version' {
+        It 'Module' `
+        {
+            # Verify manifest
+            Test-ModuleManifest "$PSScriptRoot\..\Modules\CodeForPowerShell.VisualStudio\CodeForPowerShell.VisualStudio.psd1";
 
-    It 'VisualStudio.Version Module' {
+            # Test import
+            Import-Module CodeForPowerShell.VisualStudio;
+        }
 
-        # Verify manifest
-        Test-ModuleManifest "$PSScriptRoot\..\Modules\CodeForPowerShell.VisualStudio\CodeForPowerShell.VisualStudio.psd1";
+        It 'Get-VersionFile' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Data\Version.txt";
+            [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
 
-        # Test import
-        Import-Module CodeForPowerShell.VisualStudio;
-    }
+            # Call test method to read version file
+            [Version]$version = Get-VersionFile($filePath);
 
-    It 'VisualStudio.Version Get-VersionFile' {
+            # Check result
+            $version | Should Be $expectedVersion;
+        }
 
-        # Constants
-        [string]$filePath = "$dataDirectoryPath\Data\Version.txt";
-        [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
+        It 'Set-VersionFile' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Data\Set-FileVersion Result.txt";
+            [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
 
-        # Call test method to read version file
-        [Version]$version = Get-VersionFile($filePath);
+            # Call test method to write version file
+            Set-VersionFile -File $filePath -Version $expectedVersion;
 
-        # Check result
-        $version | Should Be $expectedVersion;
-    }
+            # Read back and verify
+            [Version]$version = Get-VersionFile $filePath;
+            $version | Should Be $expectedVersion;
+        }
 
-    It 'VisualStudio.Version Set-VersionFile' {
+        It 'Set-VersionInAppXManifest' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Data\Windows Universal Package Manifest.xml";
+            [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
-        # Constants
-        [string]$filePath = "$dataDirectoryPath\Data\Set-FileVersion Result.txt";
-        [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
+            # Call test method to write version file
+            Set-VersionInAppXManifest -File $filePath -Version $newVersion;
+        }
 
-        # Call test method to write version file
-        Set-VersionFile -File $filePath -Version $expectedVersion;
+        It 'Set-VersionInXmlProject' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Data\Visual Studio XML Project.xml";
+            [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
-        # Read back and verify
-        [Version]$version = Get-VersionFile $filePath;
-        $version | Should Be $expectedVersion;
-    }
+            # Call test method to write version file
+            Set-VersionInXmlProject -File $filePath -Version $newVersion;
+        }
 
-    It 'VisualStudio.Version Set-VersionInAppXManifest' {
+        It 'Set-VersionInCppResourceFile' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Data\Visual Studio C++ Resource.rc";
+            [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
-        # Constants
-        [string]$filePath = "$dataDirectoryPath\Data\Windows Universal Package Manifest.xml";
-        [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
-
-        # Call test method to write version file
-        Set-VersionInAppXManifest -File $filePath -Version $newVersion;
-    }
-
-    It 'VisualStudio.Version Set-VersionInXmlProject' {
-
-        # Constants
-        [string]$filePath = "$dataDirectoryPath\Data\Visual Studio XML Project.xml";
-        [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
-
-        # Call test method to write version file
-        Set-VersionInXmlProject -File $filePath -Version $newVersion;
+            # Call test method to write version file
+            Set-VersionInCppResourceFile -File $filePath -Version $newVersion;
+        }
     }
 }
