@@ -1,4 +1,4 @@
-﻿# Options
+# Options
 Set-StrictMode -Version Latest;    # Proactively avoid errors and inconsistency
 $Error.Clear();                    # Clear any errors from previous script runs
 $ErrorActionPreference = "Stop";   # All unhandled errors stop program
@@ -23,7 +23,7 @@ Describe 'CodeForPowerShell' {
         It 'Get-VersionFile' `
         {
             # Constants
-            [string]$filePath = "$dataDirectoryPath\Data\Version.txt";
+            [string]$filePath = "$dataDirectoryPath\Version.txt";
             [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
 
             # Call test method to read version file
@@ -36,8 +36,8 @@ Describe 'CodeForPowerShell' {
         It 'Set-VersionFile' `
         {
             # Constants
-            [string]$filePath = "$dataDirectoryPath\Data\Set-FileVersion Result.txt";
-            [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
+            [string]$filePath = "$dataDirectoryPath\Version Updated.txt";
+            [Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
             # Call test method to write version file
             Set-VersionFile -File $filePath -Version $expectedVersion;
@@ -50,7 +50,7 @@ Describe 'CodeForPowerShell' {
         It 'Set-VersionInAppXManifest' `
         {
             # Constants
-            [string]$filePath = "$dataDirectoryPath\Data\Windows Universal Package Manifest.xml";
+            [string]$filePath = "$dataDirectoryPath\Version in Windows Universal Package Manifest.xml";
             [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
             # Call test method to write version file
@@ -60,7 +60,7 @@ Describe 'CodeForPowerShell' {
         It 'Set-VersionInXmlProject' `
         {
             # Constants
-            [string]$filePath = "$dataDirectoryPath\Data\Visual Studio XML Project.xml";
+            [string]$filePath = "$dataDirectoryPath\Version in Visual Studio XML Project.xml";
             [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
             # Call test method to write version file
@@ -70,11 +70,31 @@ Describe 'CodeForPowerShell' {
         It 'Set-VersionInCppResourceFile' `
         {
             # Constants
-            [string]$filePath = "$dataDirectoryPath\Data\Visual Studio C++ Resource.rc";
+            [string]$filePath = "$dataDirectoryPath\Version in Visual Studio C++ Resource.rc";
             [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
             # Call test method to write version file
             Set-VersionInCppResourceFile -File $filePath -Version $newVersion;
+        }
+
+        It 'Set-VersionInPowerShellScript' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Version in PowerShell Script.ps1";
+            [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
+
+            # Call test method to write version file
+            Set-VersionInPowerShellScript -File $filePath -Variable 'ScriptVersionText' -Version $newVersion;
+        }
+
+        It 'Set-VersionInPowerShellManifest' `
+        {
+            # Constants
+            [string]$filePath = "$dataDirectoryPath\Version in PowerShell Manifest.psd1";
+            [Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
+
+            # Call test method to write version file
+            Set-VersionInPowerShellManifest -File $filePath -Version $newVersion;
         }
     }
 }

@@ -1,5 +1,9 @@
 # Code for PowerShell - Release Notes
 
+## Version 1.0.1904.8### (2019.04.08)
+* Added version function to set constant in PowerShell script.
+* Added unit tests for version PowerShell file updates (script and manifest).
+
 ## Version 1.0.1903.17### (2019.03.17)
 * Added unit test for Set-VersionInCppResourceFile.
 

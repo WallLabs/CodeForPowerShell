@@ -4,17 +4,15 @@
 # Configures the system with dependencies required build the solution.
 # ==============================================================================
 
-
 # ==============================================================================
 # Globals
 # ------------------------------------------------------------------------------
 
 # Options.
-Set-StrictMode -Version Latest    # Proactively avoid errors and inconsistency
-$error.Clear()                    # Clear any errors from previous script runs
-$ErrorActionPreference = "Stop"   # All unhandled errors stop program
-$WarningPreference = "Stop"       # All warnings stop program
-
+Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency
+$Error.Clear();                   # Clear any errors from previous script runs
+$ErrorActionPreference = 'Stop';  # All unhandled errors stop program
+$WarningPreference = 'Stop';      # All warnings stop program
 
 # ==============================================================================
 # Main Program

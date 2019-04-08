@@ -32,7 +32,7 @@ Get-Module -Name 'CodeForPowerShell*' | Remove-Module -Force;
 # ------------------------------------------------------------------------------
 
 # Clean test data directory.
-$dataDirectoryPath = "$PSScriptRoot\Temp\Data";
+$dataDirectoryPath = "$PSScriptRoot\Temp";
 if (Test-Path -Path $dataDirectoryPath -PathType Container)
 {
     Remove-Item -Path $dataDirectoryPath -Recurse -Force;
