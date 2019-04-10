@@ -1,3 +1,14 @@
+<#
+  .Synopsis
+  Code for PowerShell Visual Studio Unit Tests
+
+  .Description
+  PowerShell module unit tests.
+
+#>
+
+#region Globals
+
 # Options
 Set-StrictMode -Version Latest;    # Proactively avoid errors and inconsistency
 $Error.Clear();                    # Clear any errors from previous script runs
@@ -8,7 +19,10 @@ $WarningPreference = "Stop";       # All warnings stop program
 & "$PSScriptRoot\Setup.ps1";
 $dataDirectoryPath = "$PSScriptRoot\Temp\Data";
 
-# Tests
+#endregion
+
+#region Tests
+
 Describe 'CodeForPowerShell' {
     Context 'VisualStudio.Version' {
         It 'Module' `
@@ -98,3 +112,5 @@ Describe 'CodeForPowerShell' {
         }
     }
 }
+
+#endregion

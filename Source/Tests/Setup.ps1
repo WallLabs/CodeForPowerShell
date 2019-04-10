@@ -1,23 +1,21 @@
-# ==============================================================================
-# PowerShell Unit Test Setup
-# ------------------------------------------------------------------------------
-# Runs before any tests are executed to initialize the environment and ensure
-# all modules are updated with any code changes since the last run.
-# ==============================================================================
+<#
 
-# ==============================================================================
-# Globals
-# ------------------------------------------------------------------------------
+    .Synopsis
+    Test Setup
+
+    .Description
+    Runs before any tests are executed to initialize the environment and ensure
+    all modules are updated with any code changes since the last run.
+
+#>
+
+#region Globals
 
 # Options.
-Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency
-$Error.Clear();                   # Clear any errors from previous script runs
-$ErrorActionPreference = 'Stop';  # All unhandled errors stop program
-$WarningPreference = 'Stop';      # All warnings stop program
-
-# ==============================================================================
-# Modules
-# ------------------------------------------------------------------------------
+Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency.
+$Error.Clear();                   # Clear any errors from previous script runs.
+$ErrorActionPreference = 'Stop';  # All unhandled errors stop program.
+$WarningPreference = 'Stop';      # All warnings stop program.
 
 # Initialize module paths.
 $env:PSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Machine");
@@ -27,9 +25,9 @@ $env:PSModulePath = "$env:PSModulePath;$PSScriptRoot\..\Modules";
 Get-Module -ListAvailable -Name 'CodeForPowerShell*' -Refresh;
 Get-Module -Name 'CodeForPowerShell*' | Remove-Module -Force;
 
-# ==============================================================================
-# Main Program
-# ------------------------------------------------------------------------------
+#endregion
+
+#region Main Program
 
 # Clean test data directory.
 $dataDirectoryPath = "$PSScriptRoot\Temp";
@@ -47,3 +45,5 @@ Set-Location $dataDirectoryPath;
 
 # Exit successful.
 Exit 0;
+
+#endregion
