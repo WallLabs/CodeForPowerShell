@@ -19,18 +19,27 @@ $WarningPreference = 'Stop';      # All warnings stop program
 #region Main script.
 
 # Display banner.
-Write-Output 'Solution Setup';
-Write-Output '==============';
-Write-Output 'Configures the system with dependencies required build the solution.';
-Write-Output '';
+Write-Host 'Solution Setup';
+Write-Host '==============';
+Write-Host 'Configures the system with dependencies required build the solution.';
+Write-Host;
 
-# Update NuGet.
-Write-Output 'Updating NuGet provider (required by Pester)...';
-Install-PackageProvider -Name NuGet -Force;
+# Set web proxy default credential (in case necessary).
+$proxy = [System.Net.WebRequest]::GetSystemWebProxy();
+$proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials;
+[System.Net.WebRequest]::DefaultWebProxy = $proxy;
 
-# Update Pester.
-Write-Output 'Updating Pester...';
-Install-Module -name Pester -Force -SkipPublisherCheck;
+# Install/update NuGet provider.
+Write-Host 'Installing or updating NuGet package provider...';
+Install-PackageProvider -Name NuGet -Force -Confirm:$false;
+
+# Install/update PowerShell Gallery module.
+Write-Host "Installing or updating PowerShell Gallery module...";
+Install-Module -Name PowerShellGet -Force -AllowClobber -Confirm:$false;
+
+# Install/update Pester module.
+Write-Host 'Installing or updating Pester module...';
+Install-Module -Name Pester -Force -SkipPublisherCheck -Confirm:$false;
 
 # Exit successful.
 Exit 0;

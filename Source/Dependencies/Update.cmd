@@ -23,6 +23,11 @@ git clone --branch=master git://github.com/WallLabs/CodeForWindows "%~dp0Temp\Co
 if %errorlevel% neq 0 goto Error
 
 echo.
+echo Calling solution setup script to update system dependencies.
+call PowerShell.exe -File "%~dp0..\Setup.ps1"
+if %errorlevel% neq 0 goto Error
+
+echo.
 echo Copying dependencies...
 robocopy "%~dp0Temp\CodeForWindows\Build\Scripts\Visual Studio" "%~dp0." Variables.cmd
 if %errorlevel% gtr 7 goto Error
@@ -35,7 +40,6 @@ if %errorlevel% neq 0 goto Error
 
 echo.
 echo Calling version script to update references...
-echo..
 call "%~dp0..\Version.cmd"
 if %errorlevel% neq 0 goto Error
 
@@ -51,7 +55,5 @@ exit /b 0
 
 :Error
 echo Error %errorlevel%!
-echo.
-echo Note: Visual Studio must be closed before running this script to prevent build errors from locked files and caches.
 endlocal
 exit /b 1
