@@ -1,10 +1,9 @@
 <#
-  .Synopsis
-  Code for PowerShell Visual Studio Unit Tests
+	.Synopsis
+	Code for PowerShell Visual Studio Unit Tests
 
-  .Description
-  PowerShell module unit tests.
-
+	.Description
+	PowerShell module unit tests.
 #>
 
 #region Globals

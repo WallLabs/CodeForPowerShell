@@ -1,5 +1,4 @@
 <#
-
 	.Synopsis
 	Visual Studio Version PowerShell Module
 
@@ -23,12 +22,11 @@
 	6) When the update and reference updates are automated there is no longer any risk changing the version.,
 	7) GAC deployment is no longer necessary just to consistently version dependencies, because binding redirects
 	   are easy to maintain when they are updated automatically via this script.
-
 #>
 
-#region Globals
+#region Globals.
 
-# Options
+# Options.
 Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency.
 $Error.Clear();                   # Clear any errors from previous script runs.
 $ErrorActionPreference = 'Stop';  # All unhandled errors stop program.
@@ -36,15 +34,13 @@ $WarningPreference = 'Stop';      # All warnings stop program.
 
 #endregion
 
-#region Functions
+#region Functions.
 
 <#
-
 	.Synopsis
 	Calculates a new version based on the major and minor parts of an existing version plus
 	newly calculated build and revision parts based on the current date and incrementing
 	revision number.
-
 #>
 [CmdletBinding]
 function Update-Version([Version]$Version)
@@ -73,10 +69,8 @@ function Update-Version([Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Reads a version from a text file and returns a version object.
-
 #>
 [CmdletBinding]
 function Get-VersionFile([String]$File)
@@ -91,10 +85,8 @@ function Get-VersionFile([String]$File)
 }
 
 <#
-
 	.Synopsis
 	Saves or overwrites a version text file.
-
 #>
 [CmdletBinding]
 function Set-VersionFile([String]$File, [Version]$Version)
@@ -106,10 +98,8 @@ function Set-VersionFile([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a Windows Universal AppX package manifest file.
-
 #>
 [CmdletBinding]
 function Set-VersionInAppXManifest([String]$File, [Version]$Version)
@@ -128,10 +118,8 @@ function Set-VersionInAppXManifest([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a .NET assembly info file.
-
 #>
 [CmdletBinding]
 function Set-VersionInAssemblyInfo([String]$File, [Version]$Version)
@@ -150,10 +138,8 @@ function Set-VersionInAssemblyInfo([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in assembly references of a .NET configuration file.
-
 #>
 [CmdletBinding]
 function Set-VersionInAssemblyReference([String]$File, [String]$AssemblyName, [Version]$Version)
@@ -171,10 +157,8 @@ function Set-VersionInAssemblyReference([String]$File, [String]$AssemblyName, [V
 }
 
 <#
-
 	.Synopsis
 	Sets the version in binding redirects of a .NET configuration file.
-
 #>
 [CmdletBinding]
 function Set-VersionInBindingRedirect([String]$File, [String]$AssemblyName, [Version]$Version)
@@ -194,10 +178,8 @@ function Set-VersionInBindingRedirect([String]$File, [String]$AssemblyName, [Ver
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a C++ module definition file.
-
 #>
 [CmdletBinding]
 function Set-VersionInCppModuleDefinitionFile([String]$File, [Version]$Version)
@@ -215,10 +197,8 @@ function Set-VersionInCppModuleDefinitionFile([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a C++ resource file.
-
 #>
 [CmdletBinding]
 function Set-VersionInCppResourceFile([String]$File, [Version]$Version)
@@ -239,10 +219,8 @@ function Set-VersionInCppResourceFile([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a global variable of a PowerShell script file.
-
 #>
 [CmdletBinding]
 function Set-VersionInPowerShellScript([String]$File, [String]$Variable, [Version]$Version)
@@ -260,10 +238,8 @@ function Set-VersionInPowerShellScript([String]$File, [String]$Variable, [Versio
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a global variable of a PowerShell manifest file.
-
 #>
 [CmdletBinding]
 function Set-VersionInPowerShellManifest([String]$File, [Version]$Version)
@@ -281,10 +257,8 @@ function Set-VersionInPowerShellManifest([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a Visual Studio SQL Server database project file.
-
 #>
 [CmdletBinding]
 function Set-VersionInSqlDatabaseProject([String]$File, [Version]$Version)
@@ -302,10 +276,8 @@ function Set-VersionInSqlDatabaseProject([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a Windows Installer XML global definition file.
-
 #>
 [CmdletBinding]
 function Set-VersionInWixGlobal([String]$File, [Version]$Version)
@@ -323,10 +295,8 @@ function Set-VersionInWixGlobal([String]$File, [Version]$Version)
 }
 
 <#
-
 	.Synopsis
 	Sets the version in a Windows Installer XML project file.
-
 #>
 [CmdletBinding]
 function Set-VersionInXmlProject([String]$File, [Version]$Version)

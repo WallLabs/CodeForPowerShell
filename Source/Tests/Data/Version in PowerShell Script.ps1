@@ -1,14 +1,12 @@
 <#
+	.Synopsis
+	Version in PowerShell Script
 
-    .Synopsis
-    Version in PowerShell Script
-
-    .Description
-    Script with a constant version variable, updated by the version module.
-
+	.Description
+	Script with a constant version variable, updated by the version module.
 #>
 
-#region Globals
+#region Globals.
 
 # Options.
 Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency.
@@ -22,7 +20,7 @@ $WarningPreference = 'Stop';      # All warnings stop program.
 
 #endregion
 
-#region Main Program
+#region Main script.
 
 Write-Host "Version text is $ScriptVersionText.";
 Write-Host "Version object is $ScriptVersion";

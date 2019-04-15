@@ -1,36 +1,32 @@
-# ==============================================================================
-# Version Update Script
-# ------------------------------------------------------------------------------
-# Updates the solution version text file with the date based build number then
-# applies the new version to all project files in the solution.
-# ==============================================================================
+<#
+	.Synopsis
+	Version Update Script
 
-# ==============================================================================
-# Globals
-# ------------------------------------------------------------------------------
+	.Description
+	Updates the solution version text file with the date based build number then
+	applies the new version to all project files in the solution.
+#>
 
-# Options
-Set-StrictMode -Version Latest    # Proactively avoid errors and inconsistency
-$error.Clear()                    # Clear any errors from previous script runs
-$ErrorActionPreference = "Stop"   # All unhandled errors stop program
-$WarningPreference = "Stop"       # All warnings stop program
+#region Globals
 
-# ==============================================================================
-# Modules
-# ------------------------------------------------------------------------------
+# Options.
+Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency
+$error.Clear();                   # Clear any errors from previous script runs
+$ErrorActionPreference = "Stop";  # All unhandled errors stop program
+$WarningPreference = "Stop";      # All warnings stop program
 
-# Initialize module paths
+# Initialize module paths.
 $env:PSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Machine");
 $env:PSModulePath = "$env:PSModulePath;$PSScriptRoot\Modules";
 
-# Import modules
+# Import modules.
 Import-Module CodeForPowerShell.VisualStudio;
 
-# ==============================================================================
-# Main Program
-# ------------------------------------------------------------------------------
+#endregion
 
-# Display banner
+#region Main script.
+
+# Display banner.
 Write-Output "Version Update Script";
 Write-Output "=====================";
 Write-Output "Increments the version number stored in the Version.txt file,";
@@ -53,4 +49,6 @@ Set-VersionFile -File $versionFilePath -Version $newVersion;
 Set-VersionInPowerShellManifest -File "$PSScriptRoot\Modules\CodeForPowerShell.VisualStudio\CodeForPowerShell.VisualStudio.psd1" -Version $newVersion;
 
 # Exit successful
-exit 0;
+Exit 0;
+
+#endregion

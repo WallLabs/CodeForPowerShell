@@ -1,12 +1,12 @@
-# ==============================================================================
-# Solution Setup
-# ------------------------------------------------------------------------------
-# Configures the system with dependencies required build the solution.
-# ==============================================================================
+<#
+	.Synopsis
+	Solution Setup Script
 
-# ==============================================================================
-# Globals
-# ------------------------------------------------------------------------------
+	.Description
+	Configures the system with dependencies required build the solution.
+#>
+
+#region Globals.
 
 # Options.
 Set-StrictMode -Version Latest;   # Proactively avoid errors and inconsistency
@@ -14,9 +14,9 @@ $Error.Clear();                   # Clear any errors from previous script runs
 $ErrorActionPreference = 'Stop';  # All unhandled errors stop program
 $WarningPreference = 'Stop';      # All warnings stop program
 
-# ==============================================================================
-# Main Program
-# ------------------------------------------------------------------------------
+#endregion
+
+#region Main script.
 
 # Display banner.
 Write-Output 'Solution Setup';
@@ -34,3 +34,5 @@ Install-Module -name Pester -Force -SkipPublisherCheck;
 
 # Exit successful.
 Exit 0;
+
+#endregion

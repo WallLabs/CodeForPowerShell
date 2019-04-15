@@ -1,12 +1,10 @@
 <#
-
 	.Synopsis
 	Test Setup
 
 	.Description
 	Runs before any tests are executed to initialize the environment and ensure
 	all modules are updated with any code changes since the last run.
-
 #>
 
 #region Globals
