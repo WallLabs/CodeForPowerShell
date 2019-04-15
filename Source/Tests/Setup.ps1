@@ -1,11 +1,11 @@
 <#
 
-    .Synopsis
-    Test Setup
+	.Synopsis
+	Test Setup
 
-    .Description
-    Runs before any tests are executed to initialize the environment and ensure
-    all modules are updated with any code changes since the last run.
+	.Description
+	Runs before any tests are executed to initialize the environment and ensure
+	all modules are updated with any code changes since the last run.
 
 #>
 
@@ -33,7 +33,7 @@ Get-Module -Name 'CodeForPowerShell*' | Remove-Module -Force;
 $dataDirectoryPath = "$PSScriptRoot\Temp";
 if (Test-Path -Path $dataDirectoryPath -PathType Container)
 {
-    Remove-Item -Path $dataDirectoryPath -Recurse -Force;
+	Remove-Item -Path $dataDirectoryPath -Recurse -Force;
 }
 New-Item -Path $dataDirectoryPath -ItemType Directory | Out-Null;
 
