@@ -27,6 +27,9 @@ Get-Module -Name 'CodeForPowerShell*' | Remove-Module -Force;
 
 #region Main Program
 
+# Normalize working directory.
+Set-Location $PSScriptRoot;
+
 # Clean test data directory.
 $dataDirectoryPath = "$PSScriptRoot\Temp";
 if (Test-Path -Path $dataDirectoryPath -PathType Container)
