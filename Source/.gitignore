@@ -3,12 +3,9 @@
 # =============================================================================
 
 # Ignore solution specific files.
-/Temp/
-/Tests/Temp/
-/Tests/Data/RC*
-
-# PowerShell Tools.
-*.cache
+[Tt]emp/
+[Tt]ests/[Tt]emp/
+[Tt]ests/[Dd]ata/RC*
 
 
 # =============================================================================
