@@ -2,8 +2,10 @@
 # Solution Root Git Ignore
 # =============================================================================
 
-# Ignore solution specific files.
+# Temporary files.
 [Tt]emp/
+
+# Test generated files.
 [Tt]ests/[Tt]emp/
 [Tt]ests/[Dd]ata/RC*
 
