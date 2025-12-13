@@ -5,10 +5,10 @@
     <File Path="Dependencies/Variables.cmd" />
   </Folder>
   <Folder Name="/Dependencies/Documentation/">
-    <File Path="Dependencies/Version/CodeForWindows.Version.txt" />
+    <File Path="Dependencies/Documentation/Code for Windows Release Notes.md" />
   </Folder>
   <Folder Name="/Dependencies/Version/">
-    <File Path="Dependencies/Documentation/Code for Windows Release Notes.md" />
+    <File Path="Dependencies/Version/CodeForWindows.Version.txt" />
   </Folder>
   <Folder Name="/Documentation/">
     <File Path="Documentation/Release Notes.md" />
