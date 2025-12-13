@@ -1,0 +1,32 @@
+<Solution>
+  <Folder Name="/Dependencies/">
+    <File Path="Dependencies/.gitignore" />
+    <File Path="Dependencies/Update.cmd" />
+    <File Path="Dependencies/Variables.cmd" />
+  </Folder>
+  <Folder Name="/Dependencies/Documentation/">
+    <File Path="Dependencies/Version/CodeForWindows.Version.txt" />
+  </Folder>
+  <Folder Name="/Dependencies/Version/">
+    <File Path="Dependencies/Documentation/Code for Windows Release Notes.md" />
+  </Folder>
+  <Folder Name="/Documentation/">
+    <File Path="Documentation/Release Notes.md" />
+  </Folder>
+  <Folder Name="/Modules/">
+    <Project Path="Modules/CodeForPowerShell.VisualStudio/CodeForPowerShell.VisualStudio.pssproj" Type="f5034706-568f-408a-b7b3-4d38c6db8a32" Id="b8599c92-c20c-4512-a4a2-b176061b9515" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Build.cmd" />
+    <File Path="NuGet.config" />
+    <File Path="Release.cmd" />
+    <File Path="Setup.cmd" />
+    <File Path="Setup.ps1" />
+    <File Path="Version.cmd" />
+    <File Path="Version.ps1" />
+    <File Path="Version.txt" />
+  </Folder>
+  <Project Path="Tests/Tests.pssproj" Type="f5034706-568f-408a-b7b3-4d38c6db8a32" Id="6cafc0c6-a428-4d30-a9f9-700e829fea51" />
+</Solution>

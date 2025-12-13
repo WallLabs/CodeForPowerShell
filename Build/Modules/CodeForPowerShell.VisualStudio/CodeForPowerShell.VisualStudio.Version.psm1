@@ -114,7 +114,7 @@ function Set-VersionInAppXManifest([String]$File, [Version]$Version)
 	if ($versionElement -ne $null) { $versionElement.Value = $Version.ToString(); }
 
 	# Save changes
-	[System.IO.File]::WriteAllText($File, $contents.OuterXml);
+	$contents.WriteTo((New-Object System.Xml.XmlTextWriter($File, [System.Text.Encoding]::UTF8) -Property @{ Formatting = 'Indented' }));
 }
 
 <#
@@ -319,7 +319,7 @@ function Set-VersionInXmlProject([String]$File, [Version]$Version)
 	if ($versionElement -ne $null) { $versionElement.InnerText = $Version.ToString(); }
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents.OuterXml);
+	$contents.WriteTo((New-Object System.Xml.XmlTextWriter($File, [System.Text.Encoding]::UTF8) -Property @{ Formatting = 'Indented' }));
 }
 
 #endregion

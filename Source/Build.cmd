@@ -32,7 +32,7 @@ if exist "%~dp0Temp\Build\%ConfigurationName%" (
 
 echo.
 echo Compiling %ConfigurationName% build...
-msbuild "%~dp0Code for PowerShell.sln" /p:Configuration=%ConfigurationName%
+msbuild "%~dp0Code for PowerShell.slnx" /p:Configuration=%ConfigurationName%
 if %errorlevel% neq 0 goto error
 
 echo.
