@@ -20,6 +20,30 @@ $dataDirectoryPath = "$PSScriptRoot\Temp\Data";
 
 #endregion
 
+#region Functions.
+
+<#
+	.Synopsis
+    Verifies the content of an XML file.
+#>
+function Verify-XmlFileValue([string]$filePath, [string]$testXpath, [string]$testValue)
+{
+    # Load file, which also verifies the file has been properly written and closed.
+    # Tests show files remain locked or truncated when XML or text writers are not explicitly closed.
+	$xml = [xml]::new();
+    $xml.PreserveWhitespace = $true;
+    $xml.Load($filePath);
+
+    # Read test value.
+    $testNode = $xml.SelectSingleNode($testXpath);
+    $actualValue = if ($testNode.NodeType -eq 'Attribute') { $testNode.Value } else { $testNode.InnerText.Trim() };
+
+    # Assert equals expected value.
+    $actualValue | Should BeExactly $testValue;
+}
+
+#endregion
+
 #region Tests
 
 Describe 'CodeForPowerShell' {
@@ -77,6 +101,9 @@ Describe 'CodeForPowerShell' {
 
 			# Test setting version in AppX manifest.
 			Set-VersionInAppXManifest -File $filePath -Version $newVersion;
+
+            # Read back and verify.
+            Verify-XmlFileValue $filePath "/node()[name() = 'Package']/node()[name() = 'Identity']/@Version" "7.8.9900.11222";
 		}
 
 		It 'Set-VersionInXmlProject' `
@@ -90,6 +117,9 @@ Describe 'CodeForPowerShell' {
 
 			# Test setting version in Visual Studio XML project.
 			Set-VersionInXmlProject -File $filePath -Version $newVersion;
+
+            # Read back and verify.
+            Verify-XmlFileValue $filePath "/Project/PropertyGroup/Version" "7.8.9900.11222";
 		}
 
 		It 'Set-VersionInCppResourceFile' `

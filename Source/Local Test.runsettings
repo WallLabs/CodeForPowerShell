@@ -18,7 +18,7 @@
   <!-- MSTest Adapter -->
   <MSTest>
     <MapInconclusiveToFailed>True</MapInconclusiveToFailed>
-    <CaptureTraceOutput>True</CaptureTraceOutput>
+    <CaptureTraceOutput>False</CaptureTraceOutput>
     <DeleteDeploymentDirectoryAfterTestRunIsComplete>False</DeleteDeploymentDirectoryAfterTestRunIsComplete>
     <DeploymentEnabled>False</DeploymentEnabled>
   </MSTest>

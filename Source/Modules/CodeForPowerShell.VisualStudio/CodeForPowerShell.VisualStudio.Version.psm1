@@ -106,15 +106,17 @@ function Set-VersionInAppXManifest([String]$File, [Version]$Version)
 {
 	Write-Host("Setting version in Windows Universal package manifest file " + $File);
 
-	# Load file
-	$text = [xml][System.IO.File]::ReadAllText($File);
+	# Load file as XML.
+	$xml = [xml]::new();
+    $xml.PreserveWhitespace = $true;
+    $xml.Load($File);
 
-	# Find and replace manifest version
-	$versionElement = $text.SelectSingleNode("/node()[name() = 'Package']/node()[name() = 'Identity']/@Version");
+	# Find and replace manifest version.
+	$versionElement = $xml.SelectSingleNode("/node()[name() = 'Package']/node()[name() = 'Identity']/@Version");
 	if ($versionElement -ne $null) { $versionElement.Value = $Version.ToString(); }
 
-	# Save changes
-	$text.WriteTo((New-Object System.Xml.XmlTextWriter($File, [System.Text.Encoding]::UTF8) -Property @{ Formatting = 'Indented' }));
+	# Save changes.
+    $xml.Save($File);
 }
 
 <#
@@ -303,7 +305,7 @@ function Set-VersionInXmlProject([String]$File, [Version]$Version)
 {
 	Write-Host("Setting version in XML project file " + $File);
 
-	# Load file.
+	# Load file as XML.
 	$xml = [xml]::new();
     $xml.PreserveWhitespace = $true;
     $xml.Load($File);
