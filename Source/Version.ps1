@@ -47,6 +47,7 @@ Set-VersionFile -File $versionFilePath -Version $newVersion;
 
 # Set version in Visual Studio project and source files...
 Set-VersionInPowerShellManifest -File "$PSScriptRoot\Modules\CodeForPowerShell.VisualStudio\CodeForPowerShell.VisualStudio.psd1" -Version $newVersion;
+Set-VersionInXmlProject -File "$PSScriptRoot\Directory.Build.props" -Version $newVersion;
 
 # Exit successful
 Exit 0;

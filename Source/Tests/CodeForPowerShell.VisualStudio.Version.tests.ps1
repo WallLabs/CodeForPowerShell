@@ -26,87 +26,108 @@ Describe 'CodeForPowerShell' {
 	Context 'VisualStudio.Version' {
 		It 'Module' `
 		{
-			# Verify manifest
+			# Verify manifest.
 			Test-ModuleManifest "$PSScriptRoot\..\Modules\CodeForPowerShell.VisualStudio\CodeForPowerShell.VisualStudio.psd1";
 
-			# Test import
+			# Test module import.
 			Import-Module CodeForPowerShell.VisualStudio;
 		}
 
 		It 'Get-VersionFile' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version.txt";
 			[Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 1, 2, 3344, 55666;
 
-			# Call test method to read version file
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
+
+			# Test version file read method.
 			[Version]$version = Get-VersionFile($filePath);
 
-			# Check result
+			# Check result.
 			$version | Should Be $expectedVersion;
 		}
 
 		It 'Set-VersionFile' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version Updated.txt";
 			[Version]$expectedVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
-			# Call test method to write version file
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
+
+			# Test version file write method.
 			Set-VersionFile -File $filePath -Version $expectedVersion;
 
-			# Read back and verify
+			# Read back and verify.
 			[Version]$version = Get-VersionFile $filePath;
 			$version | Should Be $expectedVersion;
 		}
 
 		It 'Set-VersionInAppXManifest' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version in Windows Universal Package Manifest.xml";
 			[Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
+            
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
 
-			# Call test method to write version file
+			# Test setting version in AppX manifest.
 			Set-VersionInAppXManifest -File $filePath -Version $newVersion;
 		}
 
 		It 'Set-VersionInXmlProject' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version in Visual Studio XML Project.xml";
 			[Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
+            
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
 
-			# Call test method to write version file
+			# Test setting version in Visual Studio XML project.
 			Set-VersionInXmlProject -File $filePath -Version $newVersion;
 		}
 
 		It 'Set-VersionInCppResourceFile' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version in Visual Studio C++ Resource.rc";
 			[Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
+            
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
 
-			# Call test method to write version file
+			# Test setting version in C++ resource file.
 			Set-VersionInCppResourceFile -File $filePath -Version $newVersion;
 		}
 
 		It 'Set-VersionInPowerShellScript' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version in PowerShell Script.ps1";
 			[Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
 
-			# Call test method to write version file
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
+
+			# Test setting method in PowerShell script variable.
 			Set-VersionInPowerShellScript -File $filePath -Variable 'ScriptVersionText' -Version $newVersion;
 		}
 
 		It 'Set-VersionInPowerShellManifest' `
 		{
-			# Constants
+			# Constants.
 			[string]$filePath = "$dataDirectoryPath\Version in PowerShell Manifest.psd1";
 			[Version]$newVersion = New-Object -TypeName 'System.Version' -ArgumentList 7, 8, 9900, 11222;
+            
+            # Initialize.
+            Import-Module CodeForPowerShell.VisualStudio;
 
-			# Call test method to write version file
+			# Test setting version in PowerShell manifest.
 			Set-VersionInPowerShellManifest -File $filePath -Version $newVersion;
 		}
 	}

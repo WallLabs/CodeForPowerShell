@@ -20,6 +20,8 @@
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="Build.cmd" />
+    <File Path="Directory.Build.props" />
+    <File Path="Local Test.runsettings" />
     <File Path="NuGet.config" />
     <File Path="Release.cmd" />
     <File Path="Setup.cmd" />

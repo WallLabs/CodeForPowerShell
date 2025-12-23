@@ -46,7 +46,7 @@ $WarningPreference = 'Stop';      # All warnings stop program.
 function Update-Version([Version]$Version)
 {
 	# Get date.
-	$date =(Get-Date).ToUniversalTime();
+	$date = (Get-Date).ToUniversalTime();
 
 	# Calculate date relative parts of version.
 	$newBuild = $date.ToString("yyMM");
@@ -107,14 +107,14 @@ function Set-VersionInAppXManifest([String]$File, [Version]$Version)
 	Write-Host("Setting version in Windows Universal package manifest file " + $File);
 
 	# Load file
-	$contents = [xml][System.IO.File]::ReadAllText($File);
+	$text = [xml][System.IO.File]::ReadAllText($File);
 
 	# Find and replace manifest version
-	$versionElement = $contents.SelectSingleNode("/node()[name() = 'Package']/node()[name() = 'Identity']/@Version");
+	$versionElement = $text.SelectSingleNode("/node()[name() = 'Package']/node()[name() = 'Identity']/@Version");
 	if ($versionElement -ne $null) { $versionElement.Value = $Version.ToString(); }
 
 	# Save changes
-	$contents.WriteTo((New-Object System.Xml.XmlTextWriter($File, [System.Text.Encoding]::UTF8) -Property @{ Formatting = 'Indented' }));
+	$text.WriteTo((New-Object System.Xml.XmlTextWriter($File, [System.Text.Encoding]::UTF8) -Property @{ Formatting = 'Indented' }));
 }
 
 <#
@@ -127,14 +127,14 @@ function Set-VersionInAssemblyInfo([String]$File, [Version]$Version)
 	Write-Host("Setting version in assembly info file " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(AssemblyVersion(?:Attribute)?\(\"")(?:\d+\.\d+\.\d+\.\d+)(\""\))",("`${1}" + $Version.ToString() + "`${2}"));
-	$contents = [RegEx]::Replace($contents, "(AssemblyFileVersion(?:Attribute)?\(\"")(?:\d+\.\d+\.\d+\.\d+)(\""\))",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(AssemblyVersion(?:Attribute)?\(\"")(?:\d+\.\d+\.\d+\.\d+)(\""\))",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(AssemblyFileVersion(?:Attribute)?\(\"")(?:\d+\.\d+\.\d+\.\d+)(\""\))",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -147,13 +147,13 @@ function Set-VersionInAssemblyReference([String]$File, [String]$AssemblyName, [V
 	Write-Host("Setting version in assembly references of " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "([\"">](?:\S+,\s+){0,1}" + $AssemblyName + ",\s+Version=)(?:\d+\.\d+\.\d+\.\d+)([,\""<])",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "([\"">](?:\S+,\s+){0,1}" + $AssemblyName + ",\s+Version=)(?:\d+\.\d+\.\d+\.\d+)([,\""<])",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -166,15 +166,15 @@ function Set-VersionInBindingRedirect([String]$File, [String]$AssemblyName, [Ver
 	Write-Host("Setting version in binding redirects of " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
 	$oldVersionMax = New-Object -TypeName "System.Version" -ArgumentList $Version.Major, $Version.Minor, $Version.Build,($Version.Revision - 1);
 	$pattern = "(<dependentAssembly>[\s\S]*?<assemblyIdentity\s+name=\""" + $AssemblyName + "\""[\s\S]+?/>[\s\S]*?<bindingRedirect\s+oldVersion=\""\d+\.\d+\.\d+\.\d+-)(?:\d+\.\d+\.\d+\.\d+)(\""\s+newVersion=\"")(?:\d+\.\d+\.\d+\.\d+)(\""[\s\S]*?/>)";
-	$contents = [RegEx]::Replace($contents, $pattern,("`${1}" + $oldVersionMax.ToString() + "`${2}" + $Version.ToString() + "`${3}"));
+	$text = [RegEx]::Replace($text, $pattern,("`${1}" + $oldVersionMax.ToString() + "`${2}" + $Version.ToString() + "`${3}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -187,13 +187,13 @@ function Set-VersionInCppModuleDefinitionFile([String]$File, [Version]$Version)
 	Write-Host("Setting version in C++ module definition file " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(VERSION\s+)(?:\d+\,\d+\,\d+\,\d+)",("`${1}" + $Version.ToString(2)));
+	$text = [RegEx]::Replace($text, "(VERSION\s+)(?:\d+\,\d+\,\d+\,\d+)",("`${1}" + $Version.ToString(2)));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -206,16 +206,16 @@ function Set-VersionInCppResourceFile([String]$File, [Version]$Version)
 	Write-Host("Setting version in C++ resource file " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(FILEVERSION\s+)(?:\d+\,\d+\,\d+\,\d+)",("`${1}" + $Version.Major.ToString() + "," + $Version.Minor.ToString() + "," + $Version.Build.ToString() + "," + $Version.Revision.ToString()));
-	$contents = [RegEx]::Replace($contents, "(PRODUCTVERSION\s+)(?:\d+\,\d+\,\d+\,\d+)",("`${1}" + $Version.Major.ToString() + "," + $Version.Minor.ToString() + "," + $Version.Build.ToString() + "," + $Version.Revision.ToString()));
-	$contents = [RegEx]::Replace($contents, "(VALUE\s+\""FileVersion\"",\s*\"")(?:\d+\.\d+\.\d+\.\d+)(\"")",("`${1}" + $Version.ToString() + "`${2}"));
-	$contents = [RegEx]::Replace($contents, "(VALUE\s+\""ProductVersion\"",\s*\"")(?:\d+\.\d+\.\d+\.\d+)(\"")",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(FILEVERSION\s+)(?:\d+\,\d+\,\d+\,\d+)",("`${1}" + $Version.Major.ToString() + "," + $Version.Minor.ToString() + "," + $Version.Build.ToString() + "," + $Version.Revision.ToString()));
+	$text = [RegEx]::Replace($text, "(PRODUCTVERSION\s+)(?:\d+\,\d+\,\d+\,\d+)",("`${1}" + $Version.Major.ToString() + "," + $Version.Minor.ToString() + "," + $Version.Build.ToString() + "," + $Version.Revision.ToString()));
+	$text = [RegEx]::Replace($text, "(VALUE\s+\""FileVersion\"",\s*\"")(?:\d+\.\d+\.\d+\.\d+)(\"")",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(VALUE\s+\""ProductVersion\"",\s*\"")(?:\d+\.\d+\.\d+\.\d+)(\"")",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -228,13 +228,13 @@ function Set-VersionInPowerShellScript([String]$File, [String]$Variable, [Versio
 	Write-Host("Setting version in PowerShell script variable `$$Variable in file `"$File`"");
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(\s*\`$$Variable\s*=\s*')(?:\d+(?:\.\d+)+)(')",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(\s*\`$$Variable\s*=\s*')(?:\d+(?:\.\d+)+)(')",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -247,13 +247,13 @@ function Set-VersionInPowerShellManifest([String]$File, [Version]$Version)
 	Write-Host("Setting version in PowerShell manifest file " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(\s*ModuleVersion\s*=\s*')(?:\d+(?:\.\d+)+)(')",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(\s*ModuleVersion\s*=\s*')(?:\d+(?:\.\d+)+)(')",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -266,13 +266,13 @@ function Set-VersionInSqlDatabaseProject([String]$File, [Version]$Version)
 	Write-Host("Setting version in Database project file " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(<DacVersion>)(?:\d+\.\d+\.\d+\.\d+)(</DacVersion>)",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(<DacVersion>)(?:\d+\.\d+\.\d+\.\d+)(</DacVersion>)",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -285,13 +285,13 @@ function Set-VersionInWixGlobal([String]$File, [Version]$Version)
 	Write-Host("Setting version in WIX global file " + $File);
 
 	# Load file.
-	$contents = [System.IO.File]::ReadAllText($File);
+	$text = [System.IO.File]::ReadAllText($File);
 
 	# Find and replace version.
-	$contents = [RegEx]::Replace($contents, "(\<\?define\s*ProductVersion\s*=\s*\"")(?:\d+\.\d+\.\d+\.\d+)(\""\s*\?\>)",("`${1}" + $Version.ToString() + "`${2}"));
+	$text = [RegEx]::Replace($text, "(\<\?define\s*ProductVersion\s*=\s*\"")(?:\d+\.\d+\.\d+\.\d+)(\""\s*\?\>)",("`${1}" + $Version.ToString() + "`${2}"));
 
 	# Save changes.
-	[System.IO.File]::WriteAllText($File, $contents);
+	[System.IO.File]::WriteAllText($File, $text);
 }
 
 <#
@@ -304,22 +304,24 @@ function Set-VersionInXmlProject([String]$File, [Version]$Version)
 	Write-Host("Setting version in XML project file " + $File);
 
 	# Load file.
-	$contents = [xml][System.IO.File]::ReadAllText($File);
+	$xml = [xml]::new();
+    $xml.PreserveWhitespace = $true;
+    $xml.Load($File);
 
 	# Find and replace manifest version.
-	$versionElement = $contents.SelectSingleNode("/Project/PropertyGroup/Version");
+	$versionElement = $xml.SelectSingleNode("/Project/PropertyGroup/Version");
 	if ($versionElement -ne $null) { $versionElement.InnerText = $Version.ToString(); }
 
 	# Find and replace assembly version.
-	$versionElement = $contents.SelectSingleNode("/Project/PropertyGroup/AssemblyVersion");
+	$versionElement = $xml.SelectSingleNode("/Project/PropertyGroup/AssemblyVersion");
 	if ($versionElement -ne $null) { $versionElement.InnerText = $Version.ToString(); }
 
 	# Find and replace file version.
-	$versionElement = $contents.SelectSingleNode("/Project/PropertyGroup/FileVersion");
+	$versionElement = $xml.SelectSingleNode("/Project/PropertyGroup/FileVersion");
 	if ($versionElement -ne $null) { $versionElement.InnerText = $Version.ToString(); }
 
 	# Save changes.
-	$contents.WriteTo((New-Object System.Xml.XmlTextWriter($File, [System.Text.Encoding]::UTF8) -Property @{ Formatting = 'Indented' }));
+    $xml.Save($File);
 }
 
 #endregion

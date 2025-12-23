@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        
+        <!-- Identity -->
+        <Product>Code for PowerShell</Product>
+        <Authors>Wall Labs</Authors>
+        <Company>Wall Labs</Company>
+        <Copyright>Copyright © Wall Labs. All Rights Reserved.</Copyright>
+        <AssemblyCopyright>Copyright © Wall Labs.</AssemblyCopyright>
+        <AssemblyTrademark>All Rights Reserved.</AssemblyTrademark>
+        <Version>1.0.2512.23002</Version>
+        <AssemblyVersion>1.0.2512.23002</AssemblyVersion>
+        <FileVersion>1.0.2512.23002</FileVersion>
+        
+        <!-- Language -->
+        <TargetFramework>net10.0</TargetFramework>
+        
+        <!-- Compilation -->
+        <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        
+        <!-- Warnings -->
+        <WarningLevel>4</WarningLevel>
+        <WarningsAsErrors />
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        
+    </PropertyGroup>
+</Project>

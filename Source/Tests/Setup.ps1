@@ -17,7 +17,8 @@ $WarningPreference = 'Stop';      # All warnings stop program.
 
 # Initialize module paths.
 $env:PSModulePath = [Environment]::GetEnvironmentVariable("PSModulePath", "Machine");
-$env:PSModulePath = "$env:PSModulePath;$PSScriptRoot\..\Modules";
+$ModulesPath = Resolve-Path "$PSScriptRoot\..\Modules";
+$env:PSModulePath = "$env:PSModulePath;$ModulesPath";
 
 # Force reload of all modules in solution (so source updates are included).
 Get-Module -ListAvailable -Name 'CodeForPowerShell*' -Refresh;
